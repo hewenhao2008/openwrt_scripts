@@ -5,7 +5,7 @@
  * geo_ipset.sh :: creates an ipsets (IPv4 & IPv6) depending on configured zones to use later in iptables ipset extension
    * thanks to :: [GentooWiki](https://wiki.gentoo.org/wiki/IPSet) and [IPdeny](http://www.ipdeny.com/ipblocks)
 
-Typical user firewall in OpenWRT then could look like ::
+Typical user firewall with cron in OpenWRT then could look like ::
 
     root@openwrt:~# cat /etc/firewall.user 
     # This file is interpreted as shell script.
@@ -41,6 +41,10 @@ Typical user firewall in OpenWRT then could look like ::
     ip6tables -A countryfilter -m set --match-set cn6 src -j DROP
     # kindly reject others
     ip6tables -A countryfilter -j REJECT
+
+    root@openwrt:~# crontab -l
+    18 00 * * * /usr/local/sbin/geo_ipset.sh
+
 
 ## License
 
